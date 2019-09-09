@@ -1,0 +1,18 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Fonosoft",
+        "contact": {
+            "name": "Developer Contact",
+            "url": "https://www.example.com"
+        },
+        "version": "1.0"
+    },
+    "host": "http://fonosoft.local/",
+    "basePath": "",
+    "schemes": [
+        "http"
+    ],
+    "paths": {},
+    "definitions": {}
+}

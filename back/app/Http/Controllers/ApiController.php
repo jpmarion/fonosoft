@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-/* Class ApiController
+ /**  Class ApiController
  *
  * @package App\Http\Controllers
  *
