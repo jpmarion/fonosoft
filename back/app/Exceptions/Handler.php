@@ -46,6 +46,27 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof ModelNotFoundException
+            && $request->wantsJson()
+        ) {
+            return response()->json(['error' => 'Recurso no encontrado'], 404);
+        }
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->json(['error' => 'Método no permitido'], 405);
+        }
+        if ($exception instanceof UnauthorizedHttpException) {
+            return response()->json(['error' => 'Token no proporcionado'], 401);
+        }
+        if ($exception instanceof JWTException) {
+            return response()->json(['error' => $exception], 500);
+        }
+        if ($exception instanceof TokenExpiredException) {
+            return response()->json(['error' => 'token_expired'],
+                $exception->getStatusCode());
+        } else if ($exception instanceof TokenInvalidException) {
+            return response()->json(['error' => 'token_invalid'],
+                $exception->getStatusCode());
+        }
         return parent::render($request, $exception);
     }
 }
