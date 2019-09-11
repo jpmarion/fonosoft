@@ -13,7 +13,7 @@ namespace App\Http\Controllers;
  *      @SWG\Info(
  *          version="1.0",
  *          title="Fonosoft",
- *          @SWG\Contact(name="Developer Contact", url="https://www.example.com"),
+ *          @SWG\Contact(name="Marión Juan Pablo", url="https://www.example.com"),
  *      )
  * )
  */
