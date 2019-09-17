@@ -14,7 +14,7 @@
         "http"
     ],
     "paths": {
-        "/api/register": {
+        "/api/signup": {
             "post": {
                 "tags": [
                     "Users"
@@ -51,6 +51,121 @@
                         "description": "No encontrado"
                     }
                 }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "registrar a un usuario",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Json format",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u00c9xito: operaci\u00f3n exitosa"
+                    },
+                    "401": {
+                        "description": "Rechazado: no autenticado"
+                    },
+                    "422": {
+                        "description": "Falta campo obligatorio"
+                    },
+                    "404": {
+                        "description": "No encontrado"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "cerrar sesi\u00f3n de un usuario",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Json format",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u00c9xito: operaci\u00f3n exitosa"
+                    },
+                    "401": {
+                        "description": "Rechazado: no autenticado"
+                    },
+                    "422": {
+                        "description": "Falta campo obligatorio"
+                    },
+                    "404": {
+                        "description": "No encontrado"
+                    },
+                    "405": {
+                        "description": "Entrada inv\u00e1lida"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/user": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "devolver el usuario",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Json format",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u00c9xito: operaci\u00f3n exitosa"
+                    },
+                    "401": {
+                        "description": "Rechazado: no autenticado"
+                    },
+                    "422": {
+                        "description": "Falta campo obligatorio"
+                    },
+                    "404": {
+                        "description": "No encontrado"
+                    },
+                    "405": {
+                        "description": "Entrada inv\u00e1lida"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
             }
         }
     },
