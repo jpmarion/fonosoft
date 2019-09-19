@@ -167,6 +167,42 @@
                     }
                 ]
             }
+        },
+        "/api/signupActivate": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "activar la cuenta del usuario",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Json format",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u00c9xito: operaci\u00f3n exitosa"
+                    },
+                    "401": {
+                        "description": "Rechazado: no autenticado"
+                    },
+                    "422": {
+                        "description": "Falta campo obligatorio"
+                    },
+                    "404": {
+                        "description": "No encontrado"
+                    },
+                    "405": {
+                        "description": "Entrada inv\u00e1lida"
+                    }
+                }
+            }
         }
     },
     "definitions": {

@@ -238,7 +238,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      *
      * @SWG\Post(
-     *       path="/api/user",
+     *       path="/api/signupActivate",
      *       tags={"Users"},
      *       summary="activar la cuenta del usuario",
      *       @SWG\Parameter(
