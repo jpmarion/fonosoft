@@ -8,7 +8,7 @@ namespace App\Http\Controllers;
  *
  * @SWG\Swagger(
  *      basePath="",
- *      host="http://fonosoft.local/",
+ *      host="fonosoft.local/",
  *      schemes={"http"},
  *      @SWG\Info(
  *          version="1.0",

@@ -10,7 +10,7 @@ use Laravel\Passport\HasApiTokens;
 /**
  * @SWG\Definition(
  *      definition="User",
- *      required={"name", "email", "password"},
+ *      required={"name", "email", "password","password_confirmation"},
  *      @SWG\Property(
  *          property="name",
  *          type="string",
@@ -27,6 +27,12 @@ use Laravel\Passport\HasApiTokens;
  *          property="password",
  *          type="string",
  *          description="Una contraseña muy segura",
+ *          example="123456"
+ *      ),
+ *      @SWG\Property(
+ *          property="password_confirmation",
+ *          type="string",
+ *          description="Confirmar contraseña",
  *          example="123456"
  *      )
  * )

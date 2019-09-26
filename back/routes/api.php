@@ -11,6 +11,17 @@
 |
  */
 
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', 'API\AuthController@login');
+    Route::post('signup', 'API\AuthController@signup');
+    Route::post('signup/activare/{token}', 'API\AuthController@signupActivate');
+});
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('logout', 'API\AuthController@logout');
+    Route::get('user', 'API\AuthController@user');
+});
+
 Route::group([
     'namespace' => 'Auth',
     'middleware' => 'api',
@@ -19,15 +30,4 @@ Route::group([
     Route::post('create', 'PasswordResetController@create');
     Route::get('find/{token}', 'PasswordResetController@find');
     Route::post('reset', 'PasswordResetController@create');
-});
-
-Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
-    Route::post('signup/activare/{token}', 'AuthController@signupActivate');
-});
-
-Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('logout', 'AuthController@logout');
-    Route::get('user', 'AuthController@user');
 });

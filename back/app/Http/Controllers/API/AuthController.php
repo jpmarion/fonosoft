@@ -4,10 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Notifications\SignupActivate;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\User;
+
 
 class AuthController extends Controller
 {
@@ -18,7 +19,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      *
      * @SWG\Post(
-     *      path="/api/signup",
+     *      path="/api/auth/signup",
      *      tags={"Users"},
      *      summary="Crear nuevo usuario",
      *      @SWG\Parameter(
@@ -55,16 +56,16 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'emai' => 'required|string|email|unique:users',
+            'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed',
         ]);
+
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'activation_token' => str_random(60),
+            'activation_token' => md5(60),
         ]);
-
         $user->save();
 
         $user->notify(new SignupActivate($user));

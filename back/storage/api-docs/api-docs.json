@@ -8,13 +8,13 @@
         },
         "version": "1.0"
     },
-    "host": "http://fonosoft.local/",
+    "host": "fonosoft.local/",
     "basePath": "",
     "schemes": [
         "http"
     ],
     "paths": {
-        "/api/signup": {
+        "/api/auth/signup": {
             "post": {
                 "tags": [
                     "Users"
@@ -225,6 +225,11 @@
                 },
                 "password": {
                     "description": "Una contrase\u00f1a muy segura",
+                    "type": "string",
+                    "example": "123456"
+                },
+                "password_confirmation": {
+                    "description": "Confirmar contrase\u00f1a",
                     "type": "string",
                     "example": "123456"
                 }
