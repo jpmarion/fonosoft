@@ -239,36 +239,37 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      *
      * @SWG\Post(
-     *       path="/api/signupActivate",
-     *       tags={"Users"},
-     *       summary="activar la cuenta del usuario",
-     *       @SWG\Parameter(
-     *           name="body",
-     *           in="body",
-     *           required=true,
-     *       @SWG\Schema(ref="#/definitions/User"),
-     *       description="Json format",
-     *       ),
-     *       @SWG\Response(
-     *           response=200,
-     *           description="Éxito: operación exitosa"
-     *       ),
-     *       @SWG\Response(
-     *           response=401,
-     *           description="Rechazado: no autenticado"
-     *       ),
-     *       @SWG\Response(
-     *           response="422",
-     *           description="Falta campo obligatorio"
-     *       ),
-     *       @SWG\Response(
-     *           response="404",
-     *           description="No encontrado"
-     *       ),
-     *       @SWG\Response(
-     *           response="405",
-     *           description="Entrada inválida"
-     *       )
+     *      path="/api/auth/signup/activate/{token}",
+     *      tags={"Users"},
+     *          summary="Crear un nuevo usuario",
+     *          @SWG\Parameter(
+     *              name="token",
+     *              description="Token recibido",
+     *              required=true,
+     *              type="string",
+     *              in="formData",
+     *              description="Json format"
+     *          ),
+     *          @SWG\Response(
+     *              response=201,
+     *              description="Éxito: un usuario recién creado",
+     *              @SWG\Schema(ref="#/definitions/User")
+     *          ),
+     *          @SWG\Response(
+     *              response=200,
+     *              description="Éxito: operación con éxito"
+     *          ),
+     *          @SWG\Response(
+     *              response=401,
+     *              description="Rechazado: no autenticado"* ),
+     *          @SWG\Response(
+     *              response="422",
+     *              description="Falta el campo obligatorio"
+     *          ),
+     *          @SWG\Response(
+     *              response="404",
+     *              description="No encontrado"
+     *          )
      * )
      */
     public function signupActivate($token)

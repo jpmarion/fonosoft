@@ -168,38 +168,39 @@
                 ]
             }
         },
-        "/api/signupActivate": {
+        "/api/auth/signup/activate/{token}": {
             "post": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "activar la cuenta del usuario",
+                "summary": "Crear un nuevo usuario",
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
+                        "name": "token",
+                        "in": "formData",
                         "description": "Json format",
                         "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
+                        "type": "string"
                     }
                 ],
                 "responses": {
+                    "201": {
+                        "description": "\u00c9xito: un usuario reci\u00e9n creado",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
                     "200": {
-                        "description": "\u00c9xito: operaci\u00f3n exitosa"
+                        "description": "\u00c9xito: operaci\u00f3n con \u00e9xito"
                     },
                     "401": {
                         "description": "Rechazado: no autenticado"
                     },
                     "422": {
-                        "description": "Falta campo obligatorio"
+                        "description": "Falta el campo obligatorio"
                     },
                     "404": {
                         "description": "No encontrado"
-                    },
-                    "405": {
-                        "description": "Entrada inv\u00e1lida"
                     }
                 }
             }
@@ -210,7 +211,8 @@
             "required": [
                 "name",
                 "email",
-                "password"
+                "password",
+                "password_confirmation"
             ],
             "properties": {
                 "name": {
