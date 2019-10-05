@@ -3,7 +3,7 @@
     "info": {
         "title": "Fonosoft",
         "contact": {
-            "name": "Developer Contact",
+            "name": "Mari\u00f3n Juan Pablo",
             "url": "https://www.example.com"
         },
         "version": "1.0"
@@ -13,6 +13,71 @@
     "schemes": [
         "http"
     ],
-    "paths": {},
-    "definitions": {}
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Crear nuevo usuario",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Json format",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "\u00c9xito: un usuario reci\u00e9n creado",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "200": {
+                        "description": "\u00c9xito: operaci\u00f3n exitosa"
+                    },
+                    "401": {
+                        "description": "Rechazado: no autenticado"
+                    },
+                    "422": {
+                        "description": "Falta campo obligatorio"
+                    },
+                    "404": {
+                        "description": "No encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "required": [
+                "name",
+                "email",
+                "password"
+            ],
+            "properties": {
+                "name": {
+                    "description": "Nombre de usuario",
+                    "type": "string",
+                    "example": "John Conor"
+                },
+                "email": {
+                    "description": "Direcci\u00f3n de correo electr\u00f3nico",
+                    "type": "string",
+                    "example": "john.conor@terminator.com"
+                },
+                "password": {
+                    "description": "Una contrase\u00f1a muy segura",
+                    "type": "string",
+                    "example": "123456"
+                }
+            }
+        }
+    }
 }
