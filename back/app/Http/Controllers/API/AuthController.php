@@ -4,11 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Notifications\SignupActivate;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\User;
-
 
 class AuthController extends Controller
 {
@@ -23,11 +22,36 @@ class AuthController extends Controller
      *      tags={"Users"},
      *      summary="Crear nuevo usuario",
      *      @SWG\Parameter(
-     *          name="body",
-     *          in="body",
+     *          name="name",
+     *          description="Apellido y nombre",
      *          required=true,
-     *          @SWG\Schema(ref="#/definitions/User"),
-     *          description="Json format",
+     *          type="string",
+     *          in="formData",
+     *          description="Json format"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="email",
+     *          description="Email",
+     *          required=true,
+     *          type="string",
+     *          in="formData",
+     *          description="Json format"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="password",
+     *          description="Password",
+     *          required=true,
+     *          type="string",
+     *          in="formData",
+     *          description="Json format"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="password_confirmation",
+     *          description="Confirmar password",
+     *          required=true,
+     *          type="string",
+     *          in="formData",
+     *          description="Json format"
      *      ),
      *      @SWG\Response(
      *          response=201,
@@ -82,15 +106,32 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      *
      * @SWG\Post(
-     *      path="/api/login",
+     *      path="/api/auth/login",
      *      tags={"Users"},
      *      summary="registrar a un usuario",
      *      @SWG\Parameter(
-     *          name="body",
-     *          in="body",
+     *          name="email",
+     *          description="Email",
      *          required=true,
-     *      @SWG\Schema(ref="#/definitions/User"),
-     *          description="Json format",
+     *          type="string",
+     *          in="formData",
+     *          description="Json format"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="password",
+     *          description="Password",
+     *          required=true,
+     *          type="string",
+     *          in="formData",
+     *          description="Json format"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="remember_me",
+     *          description="Recordar",
+     *          required=true,
+     *          type="boolean",
+     *          in="formData",
+     *          description="Json format"
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -112,8 +153,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|email',
-            'emai' => 'required|string',
+            'email' => 'required|string|email',
+            'password' => 'required|string',
             'remember_me' => 'boolean',
         ]);
         $credential = request(['email', 'password']);
@@ -124,7 +165,7 @@ class AuthController extends Controller
         }
         $user = $request->user();
 
-        $tokenResult = $user->createToken('Token Acceso Personal');
+        $tokenResult = $user->createToken('f0n0s0ft');
         $token = $tokenResult->token;
         if ($request->remember_me) {
             $token->expires_at = Carbon::now()->addWeek(1);
@@ -146,17 +187,18 @@ class AuthController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      *
-     * @SWG\Post(
-     *       path="/api/logout",
-     *       tags={"Users"},
-     *       summary="cerrar sesión de un usuario",
-     *       @SWG\Parameter(
-     *           name="body",
-     *           in="body",
-     *           required=true,
-     *       @SWG\Schema(ref="#/definitions/User"),
-     *       description="Json format",
-     *       ),
+     * /**
+     * @SWG\SecurityScheme(
+     *      securityDefinition="LogoutAuthentication",
+     *      type="apiKey",
+     *      in="header",
+     *      name="Authorization"
+     * )
+     *
+     * @SWG\Get(
+     *      path="/api/logout",
+     *      tags={"Users"},
+     *      summary="cerrar sesión de un usuario",
      *       @SWG\Response(
      *           response=200,
      *           description="Éxito: operación exitosa"
@@ -232,46 +274,6 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
-    /**
-     * Activar cuenta de usuario.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     *
-     * @SWG\Post(
-     *      path="/api/auth/signup/activate/{token}",
-     *      tags={"Users"},
-     *          summary="Crear un nuevo usuario",
-     *          @SWG\Parameter(
-     *              name="token",
-     *              description="Token recibido",
-     *              required=true,
-     *              type="string",
-     *              in="formData",
-     *              description="Json format"
-     *          ),
-     *          @SWG\Response(
-     *              response=201,
-     *              description="Éxito: un usuario recién creado",
-     *              @SWG\Schema(ref="#/definitions/User")
-     *          ),
-     *          @SWG\Response(
-     *              response=200,
-     *              description="Éxito: operación con éxito"
-     *          ),
-     *          @SWG\Response(
-     *              response=401,
-     *              description="Rechazado: no autenticado"* ),
-     *          @SWG\Response(
-     *              response="422",
-     *              description="Falta el campo obligatorio"
-     *          ),
-     *          @SWG\Response(
-     *              response="404",
-     *              description="No encontrado"
-     *          )
-     * )
-     */
     public function signupActivate($token)
     {
         $user = User::where('activation_token', $token)->first();
