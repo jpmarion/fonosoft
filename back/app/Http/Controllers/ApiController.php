@@ -10,6 +10,13 @@ namespace App\Http\Controllers;
  *      basePath="",
  *      host="fonosoft.local/",
  *      schemes={"http"},
+ *      @SWG\SecurityScheme(
+ *         securityDefinition="Bearer",
+ *         type="apiKey",
+ *         in="header",
+ *         name="Authorization",
+ *         description="Auth Bearer Token Format as 'Bearer <access_token>'"
+ *     ),
  *      @SWG\Info(
  *          version="1.0",
  *          title="Fonosoft",

@@ -122,7 +122,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "cerrar sesi\u00f3n de un usuario",
+                "summary": "Cerrar sesi\u00f3n de un usuario",
                 "responses": {
                     "200": {
                         "description": "\u00c9xito: operaci\u00f3n exitosa"
@@ -142,7 +142,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "Bearer": []
                     }
                 ]
             }
@@ -222,8 +222,9 @@
         }
     },
     "securityDefinitions": {
-        "LogoutAuthentication": {
+        "Bearer": {
             "type": "apiKey",
+            "description": "Auth Bearer Token Format as 'Bearer <access_token>'",
             "name": "Authorization",
             "in": "header"
         }

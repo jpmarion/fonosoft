@@ -187,18 +187,11 @@ class AuthController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      *
-     * /**
-     * @SWG\SecurityScheme(
-     *      securityDefinition="LogoutAuthentication",
-     *      type="apiKey",
-     *      in="header",
-     *      name="Authorization"
-     * )
-     *
      * @SWG\Get(
      *      path="/api/logout",
      *      tags={"Users"},
-     *      summary="cerrar sesión de un usuario",
+     *      summary="Cerrar sesión de un usuario",
+     *      security = { { "Bearer": {} } },
      *       @SWG\Response(
      *           response=200,
      *           description="Éxito: operación exitosa"
@@ -218,8 +211,7 @@ class AuthController extends Controller
      *       @SWG\Response(
      *           response="405",
      *           description="Entrada inválida"
-     *       ),
-     *       security={{"api_key":{}}}
+     *       )
      * )
      */
     public function logout(Request $request)
