@@ -148,22 +148,11 @@
             }
         },
         "/api/user": {
-            "post": {
+            "get": {
                 "tags": [
                     "Users"
                 ],
                 "summary": "devolver el usuario",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Json format",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "\u00c9xito: operaci\u00f3n exitosa"
@@ -183,7 +172,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "Bearer": []
                     }
                 ]
             }

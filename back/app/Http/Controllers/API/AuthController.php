@@ -230,17 +230,11 @@ class AuthController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      *
-     * @SWG\Post(
+     * @SWG\Get(
      *       path="/api/user",
      *       tags={"Users"},
      *       summary="devolver el usuario",
-     *       @SWG\Parameter(
-     *           name="body",
-     *           in="body",
-     *           required=true,
-     *       @SWG\Schema(ref="#/definitions/User"),
-     *       description="Json format",
-     *       ),
+     *       security = { { "Bearer": {} } },
      *       @SWG\Response(
      *           response=200,
      *           description="Éxito: operación exitosa"
@@ -260,8 +254,7 @@ class AuthController extends Controller
      *       @SWG\Response(
      *           response="405",
      *           description="Entrada inválida"
-     *       ),
-     *       security={{"api_key":{}}}
+     *       )
      * )
      */
     public function user(Request $request)
