@@ -4,10 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Notifications\SignupActivate;
+
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+
 
 class AuthController extends Controller
 {
@@ -155,6 +157,7 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
+
             'remember_me' => 'boolean',
         ]);
         $credential = request(['email', 'password']);
