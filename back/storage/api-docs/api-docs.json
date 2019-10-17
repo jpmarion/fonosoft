@@ -176,6 +176,40 @@
                     }
                 ]
             }
+        },
+        "/api/password/create": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Reestablecer contrase\u00f1a",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Json format",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "\u00c9xito: Reestablecimiento de contrase\u00f1a"
+                    },
+                    "200": {
+                        "description": "\u00c9xito: operaci\u00f3n exitosa"
+                    },
+                    "401": {
+                        "description": "Rechazado: no autenticado"
+                    },
+                    "422": {
+                        "description": "Falta campo obligatorio"
+                    },
+                    "404": {
+                        "description": "No encontrado"
+                    }
+                }
+            }
         }
     },
     "definitions": {

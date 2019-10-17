@@ -13,10 +13,44 @@ use Illuminate\Support\Carbon;
 class PasswordResetController extends Controller
 {
     /**
-     * Create token password reset
+     * Reestablecer contraseña.
      *
-     * @param  [string] email
-     * @return [string] message
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     *
+     * @SWG\Post(
+     *      path="/api/password/create",
+     *      tags={"Auth"},
+     *      summary="Reestablecer contraseña",
+     *      @SWG\Parameter(
+     *          name="email",
+     *          description="Email",
+     *          required=true,
+     *          type="string",
+     *          in="formData",
+     *          description="Json format"
+     *      ),
+     *      @SWG\Response(
+     *          response=201,
+     *          description="Éxito: Reestablecimiento de contraseña"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="Éxito: operación exitosa"
+     *      ),
+     *      @SWG\Response(
+     *          response=401,
+     *          description="Rechazado: no autenticado"
+     *      ),
+     *      @SWG\Response(
+     *          response="422",
+     *          description="Falta campo obligatorio"
+     *      ),
+     *      @SWG\Response(
+     *          response="404",
+     *          description="No encontrado"
+     *      )
+     * )
      */
     public function create(Request $request)
     {
@@ -33,7 +67,7 @@ class PasswordResetController extends Controller
             ['email' => $user->email],
             [
                 'email' => $user->email,
-                'token' => str_random(60),
+                'token' => md5($user->email),
             ]
         );
         if ($user && $passwordReset) {
@@ -53,6 +87,7 @@ class PasswordResetController extends Controller
      * @return [string] message
      * @return [json] passwordReset object
      */
+
     public function find($token)
     {
         $passwordReset = PasswordReset::where('token', $token)->first();
